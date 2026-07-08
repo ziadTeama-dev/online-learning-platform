@@ -118,6 +118,9 @@ body{
 
 
 }
+#content-left-section h1 span{
+    color: #06B6D4;
+}
 
 #content-left-section p{
     padding: 13px;
