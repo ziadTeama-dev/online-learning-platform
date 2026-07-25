@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Learnfy — My Courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/my_courses_style.css">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <div class="sidebar-overlay" id="overlay">
+
+        </div>
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar" aria-label="القائمة الرئيسية">
+
+            <button class="sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="brand">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 7c-2-2-5-2.5-8-2v13c3-.5 6 0 8 2 2-2 5-2.5 8-2V5c-3-.5-6 0-8 2Z"/>
+                    <path d="M12 7v13"/>
+                </svg>
+                Learnfy
+            </div>
+
+            <nav class="nav-group" aria-label="التنقل">
+
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 10.5 12 3l9 7.5"/>
+                        <path d="M5 9.5V21h14V9.5"/>
+                    </svg>
+                    Dashboard
+                </button>
+
+                <button class="nav-link active" data-nav aria-current="page">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6c2-1.5 5-2 8-2s6 .5 8 2v13c-2-1.5-5-2-8-2s-6 .5-8 2Z"/>
+                        <path d="M12 4v15"/>
+                    </svg>
+                    My Courses
+                </button>
+
+                <a href="index.html">
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                    </svg>
+                        Browse Courses
+                    </button>
+                </a>
+
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/>
+                    </svg>
+                    Wishlist
+                </button>
+
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 12 2 2 4-4"/>
+                        <path d="M12 3 4 6v6c0 4.5 3.2 7.7 8 9 4.8-1.3 8-4.5 8-9V6Z"/>
+                    </svg>
+                    Certificates
+                </button>
+
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <path d="m3 7 9 6 9-6"/>
+                    </svg>
+                    Messages
+                </button>
+
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.4.4.74.75 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+                    </svg>
+                    Settings
+                </button>
+
+            </nav>
+
+            <div class="nav-divider"></div>
+
+            <div class="sidebar-footer">
+                <button class="nav-link" data-nav>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 2-2.4 3.7"/>
+                        <path d="M12 17h.01"/>
+                    </svg>
+                    Help &amp; Support
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- ============ MAIN ============ -->
+        <div class="main">
+
+            <header class="topbar">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="sidebar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+
+                <div class="search-wrap">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <input type="search" class="search-input" id="searchInput" placeholder="Search for courses..." aria-label="Search for courses">
+                </div>
+
+                <div class="topbar-spacer"></div>
+
+                <div class="user-menu" id="notifMenu">
+
+                    <button class="icon-btn" id="notifTrigger" aria-haspopup="true" aria-expanded="false" aria-label="الإشعارات">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+                        </svg>
+                        <span class="badge">3</span>
+                    </button>
+
+                    <div class="dropdown notif-panel" id="notifDropdown" role="menu">
+                        <div class="notif-header">Notifications</div>
+                        <div class="notif-item">
+                            <span class="notif-dot"></span>
+                            <div>
+                                <div class="notif-text">New lesson added to React - The Complete Guide</div>
+                                <div class="notif-time">2h ago</div>
+                            </div>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-dot"></span>
+                            <div>
+                                <div class="notif-text">You earned a certificate for Microsoft Excel</div>
+                                <div class="notif-time">1d ago</div>
+                            </div>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-dot"></span>
+                            <div>
+                                <div class="notif-text">Reminder: continue Python for Data Science</div>
+                                <div class="notif-time">3d ago</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="user-menu" id="userMenu">
+
+                    <button class="user-trigger" id="userTrigger" aria-haspopup="true" aria-expanded="false" aria-label="قائمة المستخدم">
+                        <span class="avatar">ZT</span>
+                        <span class="user-name">Ziad Teama</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+
+                    <div class="dropdown" id="userDropdown" role="menu">
+
+                        <button class="dropdown-item" role="menuitem">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/>
+                            </svg>
+                            My Profile
+                        </button>
+
+                        <button class="dropdown-item" role="menuitem">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.4.4.74.75 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+                            </svg>
+                            Account Settings
+                        </button>
+
+                        <button class="dropdown-item danger" role="menuitem">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <path d="M16 17l5-5-5-5"/>
+                                <path d="M21 12H9"/>
+                            </svg>
+                            Log Out
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <main class="content">
+
+                <div class="page-head">
+                    <h1>My Courses</h1>
+                    <p>Continue learning and track your progress</p>
+                </div>
+
+                <div class="tabs" role="tablist" aria-label="Filter courses">
+                    <button class="tab-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+                    <button class="tab-btn" data-filter="in-progress" role="tab" aria-selected="false">In Progress</button>
+                    <button class="tab-btn" data-filter="completed" role="tab" aria-selected="false">Completed</button>
+                </div>
+
+                <div class="course-list" id="courseList">
+
+                    <article class="course-card" data-status="in-progress" data-title="React - The Complete Guide">
+
+                        <div class="course-icon react">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#149eca" stroke-width="1.4">
+                                <circle cx="12" cy="12" r="2.4" fill="#149eca" stroke="none"/>
+                                <ellipse cx="12" cy="12" rx="10" ry="4.2"/>
+                                <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/>
+                                <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/>
+                            </svg>
+                        </div>
+
+                        <div class="course-info">
+                            <h3>React - The Complete Guide</h3>
+                            <p>26 / 40 Lessons</p>
+                        </div>
+
+                        <div class="progress-block">
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width:65%"></div>
+                            </div>
+                            <span class="progress-pct">65%</span>
+                        </div>
+
+                        <button class="cta-btn" data-continue="React - The Complete Guide">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7Z"/>
+                            </svg>
+                            Continue
+                        </button>
+
+                    </article>
+
+                    <article class="course-card" data-status="in-progress" data-title="Python for Data Science">
+
+                        <div class="course-icon python">
+                            <svg width="28" height="28" viewBox="0 0 32 32">
+                                <path fill="#3776AB" d="M15.9 2c-1.4 0-2.7.1-3.8.3-3.4.6-4 1.8-4 4.1v3h8v1H8.1c-2.3 0-4.3 1.4-4.9 4-.7 3 0 4.8.9 6.3.9 1.5 2.3 2.4 4.2 2.4h1.7v-2.9c0-2.2 1.9-4.1 4.1-4.1h6.5c1.8 0 3.2-1.5 3.2-3.3V6.4c0-1.8-1.5-3.3-3.3-3.6-1.2-.2-2.4-.3-3.6-.3ZM12.2 5.2c.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3Z"/>
+                                <path fill="#FFD43B" d="M20 30c1.4 0 2.7-.1 3.8-.3 3.4-.6 4-1.8 4-4.1v-3h-8v-1h8.1c2.3 0 4.3-1.4 4.9-4 .7-3 0-4.8-.9-6.3-.9-1.5-2.3-2.4-4.2-2.4h-1.7v2.9c0 2.2-1.9 4.1-4.1 4.1h-6.5c-1.8 0-3.2 1.5-3.2 3.3v5.7c0 1.8 1.5 3.3 3.3 3.6 1.2.2 2.4.3 3.6.3ZM23.8 26.8c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3Z"/>
+                            </svg>
+                        </div>
+
+                        <div class="course-info">
+                            <h3>Python for Data Science</h3>
+                            <p>16 / 40 Lessons</p>
+                        </div>
+
+                        <div class="progress-block">
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width:40%"></div>
+                            </div>
+                            <span class="progress-pct">40%</span>
+                        </div>
+
+                        <button class="cta-btn" data-continue="Python for Data Science">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7Z"/>
+                            </svg>
+                            Continue
+                        </button>
+
+                    </article>
+
+                    <article class="course-card" data-status="in-progress" data-title="UI/UX Design Fundamentals">
+
+                        <div class="course-icon uiux">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7c5cf0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="14" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <circle cx="6.5" cy="6.5" r=".6" fill="#7c5cf0" stroke="none"/>
+                                <circle cx="8.5" cy="6.5" r=".6" fill="#7c5cf0" stroke="none"/>
+                                <path d="M7 13h5M7 15.5h3"/>
+                            </svg>
+                        </div>
+
+                        <div class="course-info">
+                            <h3>UI/UX Design Fundamentals</h3>
+                            <p>8 / 40 Lessons</p>
+                        </div>
+
+                        <div class="progress-block">
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width:20%"></div>
+                            </div>
+                            <span class="progress-pct">20%</span>
+                        </div>
+
+                        <button class="cta-btn" data-continue="UI/UX Design Fundamentals">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7Z"/>
+                            </svg>
+                            Continue
+                        </button>
+
+                    </article>
+
+                    <article class="course-card completed" data-status="completed" data-title="Microsoft Excel - Advanced">
+
+                        <div class="course-icon excel">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f9d55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="m8 8 8 8M16 8l-8 8"/>
+                            </svg>
+                        </div>
+
+                        <div class="course-info">
+                            <h3>Microsoft Excel - Advanced</h3>
+                            <p>20 / 20 Lessons</p>
+                        </div>
+
+                        <div class="progress-block">
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width:100%"></div>
+                            </div>
+                            <span class="progress-pct">100%</span>
+                        </div>
+
+                        <button class="cta-btn outline" data-cert="Microsoft Excel - Advanced">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6 9 17l-5-5"/>
+                            </svg>
+                            View Certificate
+                        </button>
+
+                    </article>
+
+                </div>
+
+                <div class="empty-state" id="emptyState" hidden>
+                    <h3>No courses match this view</h3>
+                    <p>Try a different filter or clear your search.</p>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="js/my_courses_script.js"></script>
+
+</body>
+
+</html>
