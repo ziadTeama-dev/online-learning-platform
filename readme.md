@@ -12,10 +12,6 @@
 ![](images/my_courses.png)
 
 --
-# My Courses Page
-![](images/my_courses.png)
-
---
 # Log in
 
 ![alt text](images/login.png)
