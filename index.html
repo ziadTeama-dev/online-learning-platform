@@ -7,43 +7,113 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/courses_style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4f46e5',
+                        'primary-dark': '#4338ca',
+                        danger: '#ef4444',
+                        success: '#22c55e',
+                        'sidebar-bg': '#0f172a',
+                        'sidebar-hover': '#1e293b',
+                        'card-bg': '#ffffff',
+                        'body-bg': '#f8fafc',
+                        'text-muted': '#64748b',
+                        'border-light': '#e2e8f0',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html{scroll-behavior:smooth;} body { font-family: 'Inter', sans-serif; background-color: #f8fafc; } #sidebar{scrollbar-width:none;} #sidebar::-webkit-scrollbar{display:none;}
+        .font-display { font-family: 'Poppins', sans-serif; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Card image backgrounds */
+        .card-img-react { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .card-img-python { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .card-img-uiux { background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%); }
+        .card-img-js { background: linear-gradient(135deg, #422006 0%, #1c1917 100%); }
+
+        /* Wishlist animation */
+        .wishlist-btn:active svg { transform: scale(0.85); }
+        .wishlist-btn svg { transition: transform 0.15s ease; }
+
+        /* Card hover lift */
+        .course-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .course-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+
+        /* Nav link transition */
+        .nav-link-item { transition: all 0.2s ease; }
+
+        /* Sidebar transition */
+        .sidebar-panel { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* Overlay fade */
+        .sidebar-overlay { transition: opacity 0.3s ease; }
+
+        /* Pagination button */
+        .page-btn { transition: all 0.15s ease; }
+
+        /* Free badge */
+        .badge-free { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+    </style>
 </head>
-<body>
+<body class="bg-body-bg text-slate-800 antialiased">
 
-    <div class="sidebar-overlay" onclick="toggleMenu()"></div>
+    <!-- Mobile Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none lg:hidden" onclick="toggleMenu()"></div>
 
-    <div class="app-shell">
-        
+    <div class="flex min-h-screen">
+
         <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="brand">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <aside id="sidebar" class="sidebar-panel fixed top-0 left-0 h-screen z-50 w-64 bg-sidebar-bg text-slate-300 flex flex-col overflow-y-auto transform -translate-x-full lg:translate-x-0">
+            <!-- Brand -->
+            <div class="flex items-center gap-3 px-6 py-5 border-b border-slate-700/50">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400">
                     <path d="M12 7c-2-2-5-2.5-8-2v13c3-.5 6 0 8 2 2-2 5-2.5 8-2V5c-3-.5-6 0-8 2Z"/><path d="M12 7v13"/>
                 </svg>
-                Learnfy
+                <span class="font-display font-bold text-xl text-white tracking-tight">Learnfy</span>
             </div>
 
-            <nav class="nav-group">
-                <button class="nav-link">
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
                     Dashboard
                 </button>
-                <a href="MyCourses.html"> 
-                 <button class="nav-link">
-                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2-1.5 5-2 8-2s6 .5 8 2v13c-2-1.5-5-2-8-2s-6 .5-8 2Z"/><path d="M12 4v15"/></svg>
-                         My Courses 
-                 </button>
+
+                <a href="MyCourses.html" class="block">
+                    <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2-1.5 5-2 8-2s6 .5 8 2v13c-2-1.5-5-2-8-2s-6 .5-8 2Z"/><path d="M12 4v15"/></svg>
+                        My Courses
+                    </button>
                 </a>
-                <button class="nav-link active">
+
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium bg-indigo-600/20 text-indigo-400 border border-indigo-500/20">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
                     Browse Courses
                 </button>
-                <button class="nav-link">
+
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/></svg>
                     Wishlist
                 </button>
-                <button class="nav-link" data-nav>
+
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m9 12 2 2 4-4"/>
                         <path d="M12 3 4 6v6c0 4.5 3.2 7.7 8 9 4.8-1.3 8-4.5 8-9V6Z"/>
@@ -51,7 +121,7 @@
                     Certificates
                 </button>
 
-                <button class="nav-link" data-nav>
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="5" width="18" height="14" rx="2"/>
                         <path d="m3 7 9 6 9-6"/>
@@ -59,7 +129,7 @@
                     Messages
                 </button>
 
-                <button class="nav-link" data-nav>
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="3"/>
                         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.4.4.74.75 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
@@ -68,20 +138,21 @@
                 </button>
             </nav>
 
-            <div class="nav-divider"></div>
-            <div class="sidebar-footer">
-                <button class="nav-link">
+            <!-- Footer -->
+            <div class="border-t border-slate-700/50 p-3">
+                <button class="nav-link-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-sidebar-hover hover:text-white text-slate-400">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 2-2.4 3.7"/><path d="M12 17h.01"/></svg>
                     Help & Support
                 </button>
             </div>
         </aside>
 
-        <!-- MAIN -->
-        <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="flex-1 flex flex-col min-w-0 lg:ml-64">
+
             <!-- TOPBAR -->
-            <header class="topbar">
-                <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-border-light px-4 sm:px-6 py-3 flex items-center gap-4">
+                <button class="lg:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 text-slate-600" onclick="toggleMenu()">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -89,141 +160,157 @@
                     </svg>
                 </button>
 
-                <div class="search-wrap">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
-                    <input type="search" class="search-input" id="courseSearch" placeholder="Search for courses...">
+                <div class="flex-1 max-w-xl">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+                        <input type="search" id="courseSearch" placeholder="Search for courses..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400">
+                    </div>
                 </div>
-                
-                <div class="topbar-spacer"></div>
-                
-                <div class="topbar-actions">
-                    <button class="icon-btn">
+
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="relative"><button id="notifTrigger" class="relative p-2 rounded-xl hover:bg-slate-100 text-slate-600 transition-colors">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-                        <span class="badge">3</span>
+                        <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
                     </button>
-                    
-                    <button class="user-trigger">
-                        <div class="avatar"></div>
-                        <span class="user-name">Ziad Teama</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                    </button>
+<div id="notifDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border z-50">
+<div class="p-4 font-semibold border-b">Notifications</div><div class="p-4">New React lesson available.</div><div class="p-4">Your certificate is ready.</div></div></div>
+
+                    <div class="relative"><button id="userTrigger" class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">ZT</div>
+                        <span class="hidden sm:block text-sm font-medium text-slate-700">Ziad Teama</span>
+                        <svg class="hidden sm:block text-slate-400" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button><div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border z-50"><a class="block p-3 hover:bg-slate-50" href="#">Profile</a><a class="block p-3 hover:bg-slate-50" href="#">Settings</a><a class="block p-3 text-red-600 hover:bg-red-50" href="#">Logout</a></div></div>
                 </div>
             </header>
 
             <!-- CONTENT -->
-            <main class="content">
-                <div class="page-head">
-                    <h1>Browse Courses</h1>
-                    <p>Explore courses and start learning new skills</p>
+            <main class="flex-1 p-6 md:p-8 xl:p-10">
+                <!-- Page Header -->
+                <div class="mb-8">
+                    <h1 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 mb-1">Browse Courses</h1>
+                    <p class="text-text-muted">Explore courses and start learning new skills</p>
                 </div>
 
-                <!-- FILTERS -->
-                <div class="filter-bar">
-                    <div class="filter-group">
-                        <select class="filter-select">
+                <!-- Filters -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <select class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 cursor-pointer hover:border-slate-300 transition-colors">
                             <option>All Categories</option>
                             <option>Development</option>
                             <option>Design</option>
                         </select>
-                        <select class="filter-select">
+                        <select class="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 cursor-pointer hover:border-slate-300 transition-colors">
                             <option>Sort by: Popular</option>
                             <option>Newest</option>
                         </select>
                     </div>
-                    <div class="results-count" id="resultsCount">Showing 4 courses</div>
+                    <div id="resultsCount" class="text-sm text-text-muted font-medium">Showing 4 courses</div>
                 </div>
 
-                <!-- COURSE GRID -->
-                <div class="course-grid" id="courseGrid">
-                    
-                    <!-- Card 1 -->
-                    <article class="browse-card">
-                        <div class="card-img react">
-                            <button class="wishlist-btn" onclick="toggleWishlist(this, event)">
+                <!-- Course Grid -->
+                <div id="courseGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mb-8">
+
+                    <!-- Card 1: React -->
+                    <article class="course-card bg-white rounded-2xl border border-slate-100 overflow-hidden cursor-pointer group">
+                        <div class="card-img-react relative h-44 flex items-center justify-center">
+                            <button class="wishlist-btn absolute top-3 right-3 w-9 h-9 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="toggleWishlist(this, event)">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/></svg>
                             </button>
                             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#149eca" stroke-width="1.4"><circle cx="12" cy="12" r="2.4" fill="#149eca" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg>
                         </div>
-                        <div class="card-body">
-                            <h3 class="card-title">React - The Complete Guide</h3>
-                            <div class="card-level">Beginner</div>
-                            <div class="card-meta">
-                                <span class="rating"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.6</span>
+                        <div class="p-5">
+                            <h3 class="font-display font-semibold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">React - The Complete Guide</h3>
+                            <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 mb-3">Beginner</div>
+                            <div class="flex items-center gap-4 text-sm text-text-muted mb-4">
+                                <span class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" class="text-amber-400 fill-current"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <span class="font-medium text-slate-700">4.6</span>
+                                </span>
                                 <span>40 Lessons</span>
                             </div>
-                            <div class="card-footer free">Free</div>
+                            <div class="badge-free inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold text-white">Free</div>
                         </div>
                     </article>
 
-                    <!-- Card 2 -->
-                    <article class="browse-card">
-                        <div class="card-img python">
-                            <button class="wishlist-btn" onclick="toggleWishlist(this, event)">
+                    <!-- Card 2: Python -->
+                    <article class="course-card bg-white rounded-2xl border border-slate-100 overflow-hidden cursor-pointer group">
+                        <div class="card-img-python relative h-44 flex items-center justify-center">
+                            <button class="wishlist-btn absolute top-3 right-3 w-9 h-9 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="toggleWishlist(this, event)">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/></svg>
                             </button>
                             <svg width="60" height="60" viewBox="0 0 32 32"><path fill="#3776AB" d="M15.9 2c-1.4 0-2.7.1-3.8.3-3.4.6-4 1.8-4 4.1v3h8v1H8.1c-2.3 0-4.3 1.4-4.9 4-.7 3 0-4.8.9-6.3.9 1.5 2.3 2.4 4.2 2.4h1.7v-2.9c0-2.2 1.9-4.1 4.1-4.1h6.5c1.8 0 3.2-1.5 3.2-3.3V6.4c0-1.8-1.5-3.3-3.3-3.6-1.2-.2-2.4-.3-3.6-.3ZM12.2 5.2c.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3Z"/><path fill="#FFD43B" d="M20 30c1.4 0 2.7-.1 3.8-.3 3.4-.6 4-1.8 4-4.1v-3h-8v-1h8.1c2.3 0 4.3-1.4 4.9-4 .7-3 0-4.8-.9-6.3-.9-1.5-2.3-2.4-4.2-2.4h-1.7v2.9c0 2.2-1.9 4.1-4.1 4.1h-6.5c-1.8 0-3.2 1.5-3.2 3.3v5.7c0 1.8 1.5 3.3 3.3 3.6 1.2.2 2.4.3 3.6.3ZM23.8 26.8c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3Z"/></svg>
                         </div>
-                        <div class="card-body">
-                            <h3 class="card-title">Python for Data Science</h3>
-                            <div class="card-level">Beginner</div>
-                            <div class="card-meta">
-                                <span class="rating"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.7</span>
+                        <div class="p-5">
+                            <h3 class="font-display font-semibold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">Python for Data Science</h3>
+                            <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 mb-3">Beginner</div>
+                            <div class="flex items-center gap-4 text-sm text-text-muted mb-4">
+                                <span class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" class="text-amber-400 fill-current"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <span class="font-medium text-slate-700">4.7</span>
+                                </span>
                                 <span>40 Lessons</span>
                             </div>
-                            <div class="card-footer">EGP 499</div>
+                            <div class="text-sm font-bold text-slate-900">EGP 499</div>
                         </div>
                     </article>
 
-                    <!-- Card 3 -->
-                    <article class="browse-card">
-                        <div class="card-img uiux">
-                            <button class="wishlist-btn" onclick="toggleWishlist(this, event)">
+                    <!-- Card 3: UI/UX -->
+                    <article class="course-card bg-white rounded-2xl border border-slate-100 overflow-hidden cursor-pointer group">
+                        <div class="card-img-uiux relative h-44 flex items-center justify-center">
+                            <button class="wishlist-btn absolute top-3 right-3 w-9 h-9 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="toggleWishlist(this, event)">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/></svg>
                             </button>
                             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#7c5cf0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".6" fill="#7c5cf0" stroke="none"/><circle cx="8.5" cy="6.5" r=".6" fill="#7c5cf0" stroke="none"/><path d="M7 13h5M7 15.5h3"/></svg>
                         </div>
-                        <div class="card-body">
-                            <h3 class="card-title">UI/UX Design Fundamentals</h3>
-                            <div class="card-level">Beginner</div>
-                            <div class="card-meta">
-                                <span class="rating"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.5</span>
+                        <div class="p-5">
+                            <h3 class="font-display font-semibold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">UI/UX Design Fundamentals</h3>
+                            <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 mb-3">Beginner</div>
+                            <div class="flex items-center gap-4 text-sm text-text-muted mb-4">
+                                <span class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" class="text-amber-400 fill-current"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <span class="font-medium text-slate-700">4.5</span>
+                                </span>
                                 <span>32 Lessons</span>
                             </div>
-                            <div class="card-footer">EGP 399</div>
+                            <div class="text-sm font-bold text-slate-900">EGP 399</div>
                         </div>
                     </article>
 
-                    <!-- Card 4 -->
-                    <article class="browse-card">
-                        <div class="card-img js">
-                            <button class="wishlist-btn" onclick="toggleWishlist(this, event)">
+                    <!-- Card 4: JavaScript -->
+                    <article class="course-card bg-white rounded-2xl border border-slate-100 overflow-hidden cursor-pointer group">
+                        <div class="card-img-js relative h-44 flex items-center justify-center">
+                            <button class="wishlist-btn absolute top-3 right-3 w-9 h-9 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="toggleWishlist(this, event)">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.5 8.2 3 4.5 6.7 4.5c2 0 3.6 1.1 4.3 2.7.7-1.6 2.3-2.7 4.3-2.7 3.7 0 6.2 3.7 4.2 7.7C19 16.65 12 21 12 21Z"/></svg>
                             </button>
                             <svg width="50" height="50" viewBox="0 0 24 24"><path fill="#F7DF1E" d="M2.38 0h19.24v19.24H2.38z"/><path d="M16.94 14.3c-.34-.9-1.2-1.46-2.16-1.46-1.04 0-1.85.5-2.26 1.4-.1.22-.16.48-.16.74 0 .96.7 1.76 1.62 1.84.28.02.58-.04.84-.18.4-.22.65-.6.74-1.04l2.12.3c-.2 1.12-1 2.06-2.02 2.4-1.24.4-2.6.06-3.46-.86-.68-.7-.96-1.66-.78-2.6.22-1.12 1-2.06 2.02-2.4 1.24-.4 2.6-.06 3.46.86.32.32.56.74.68 1.2l-2.12-.3v.01h-.52v.09zm-6.28.88c0 1.26-.64 2.38-1.72 2.92-1.06.52-2.32.42-3.3-.26-.54-.38-.94-.94-1.14-1.58l2.06-.54c.12.44.4.82.8 1.02.5.24 1.1.2 1.54-.1.34-.24.54-.62.54-1.04 0-.58-.38-1.06-.92-1.24l-1.4-.46c-.92-.3-1.64-1.06-1.82-2-.18-.94.12-1.92.8-2.58.74-.7 1.8-.96 2.8-.7.76.2 1.4.74 1.7 1.48l-1.94.86c-.16-.44-.5-.8-1-1-.44-.16-.94-.08-1.3.24-.34.3-.54.74-.54 1.2 0 .54.34 1.02.84 1.18l1.4.46c1.06.34 1.84 1.22 1.94 2.36v.78z"/></svg>
                         </div>
-                        <div class="card-body">
-                            <h3 class="card-title">JavaScript Essentials</h3>
-                            <div class="card-level">Beginner</div>
-                            <div class="card-meta">
-                                <span class="rating"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.6</span>
+                        <div class="p-5">
+                            <h3 class="font-display font-semibold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">JavaScript Essentials</h3>
+                            <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 mb-3">Beginner</div>
+                            <div class="flex items-center gap-4 text-sm text-text-muted mb-4">
+                                <span class="flex items-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" class="text-amber-400 fill-current"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <span class="font-medium text-slate-700">4.6</span>
+                                </span>
                                 <span>28 Lessons</span>
                             </div>
-                            <div class="card-footer free">Free</div>
+                            <div class="badge-free inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold text-white">Free</div>
                         </div>
                     </article>
 
                 </div>
 
-                <!-- PAGINATION -->
-                <div class="pagination">
-                    <button class="page-btn">
+                <!-- Pagination -->
+                <div class="flex items-center justify-center gap-2">
+                    <button class="page-btn w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-700 hover:border-slate-300">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <span class="page-dots">...</span>
-                    <button class="page-btn">
+                    <button class="page-btn w-10 h-10 flex items-center justify-center rounded-xl bg-indigo-600 text-white font-semibold text-sm shadow-lg shadow-indigo-500/30">1</button>
+                    <button class="page-btn w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 font-medium text-sm">2</button>
+                    <button class="page-btn w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 font-medium text-sm">3</button>
+                    <span class="px-2 text-slate-400 text-sm">...</span>
+                    <button class="page-btn w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-700 hover:border-slate-300">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                 </div>
@@ -234,32 +321,45 @@
 
     <script>
         // Toggle Sidebar on Mobile
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.sidebar-overlay');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
 
         function toggleMenu() {
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-        }
-
-        // Toggle Wishlist Status
-        // Added event.stopPropagation() so clicking the heart doesn't also click the card
-        function toggleWishlist(btn, event) {
-            if (event) event.stopPropagation();
-            
-            const svg = btn.querySelector('svg');
-            if(svg.style.fill === 'var(--danger)') {
-                svg.style.fill = 'none';
-                svg.style.color = 'currentColor';
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
             } else {
-                svg.style.fill = 'var(--danger)';
-                svg.style.color = 'var(--danger)';
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100', 'pointer-events-auto');
             }
         }
 
-        // --- NEW: Search Functionality ---
+        // Toggle Wishlist Status
+        function toggleWishlist(btn, event) {
+            if (event) event.stopPropagation();
+            const svg = btn.querySelector('svg');
+            const isFilled = svg.getAttribute('fill') === '#ef4444';
+            if (isFilled) {
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+                btn.classList.remove('bg-danger/20');
+                btn.classList.add('bg-white/10');
+            } else {
+                svg.setAttribute('fill', '#ef4444');
+                svg.setAttribute('stroke', '#ef4444');
+                btn.classList.remove('bg-white/10');
+                btn.classList.add('bg-danger/20');
+            }
+        }
+
+        // Search Functionality
         const searchInput = document.getElementById('courseSearch');
-        const courseCards = document.querySelectorAll('.browse-card');
+        const courseCards = document.querySelectorAll('.course-card');
         const resultsCountEl = document.getElementById('resultsCount');
 
         searchInput.addEventListener('input', (e) => {
@@ -267,23 +367,23 @@
             let visibleCount = 0;
 
             courseCards.forEach(card => {
-                const title = card.querySelector('.card-title').textContent.toLowerCase();
-                
+                const title = card.querySelector('h3').textContent.toLowerCase();
                 if (title.includes(searchTerm)) {
-                    card.style.display = 'flex'; // Reset to flex to match original grid flow
+                    card.style.display = 'block';
                     visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
 
-            // Update the results counter dynamically
-            if (visibleCount === 1) {
-                resultsCountEl.textContent = `Showing 1 course`;
-            } else {
-                resultsCountEl.textContent = `Showing ${visibleCount} courses`;
-            }
+            resultsCountEl.textContent = `Showing ${visibleCount} course${visibleCount !== 1 ? 's' : ''}`;
         });
-    </script>
+    
+const nt=document.getElementById('notifTrigger'),nd=document.getElementById('notifDropdown');
+const ut=document.getElementById('userTrigger'),ud=document.getElementById('userDropdown');
+if(nt)nt.onclick=(e)=>{e.stopPropagation();nd.classList.toggle('hidden');ud.classList.add('hidden');}
+if(ut)ut.onclick=(e)=>{e.stopPropagation();ud.classList.toggle('hidden');nd.classList.add('hidden');}
+document.addEventListener('click',()=>{nd.classList.add('hidden');ud.classList.add('hidden');});
+</script>
 </body>
 </html>
