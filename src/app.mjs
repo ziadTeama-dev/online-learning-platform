@@ -62,7 +62,7 @@ export const createApp = () => {
         const dbReady = mongoose.connection.readyState === 1;
         res.status(dbReady ? 200 : 503).json({ success: dbReady, database: dbReady ? "connected" : "disconnected" });
     });
-
+    // global limiter
     app.use(createRateLimiter({
         windowMs: Number(process.env.API_RATE_WINDOW_MS || 60000),
         max: Number(process.env.API_RATE_MAX || 120),

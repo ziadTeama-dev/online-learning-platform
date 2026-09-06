@@ -20,6 +20,7 @@ passport.use(new Strategy({ usernameField: "username", passwordField: "password"
         if (!user) return done(null, false, { message: "Bad credentials" });
         const valid = await comparePassword(password, user.password);
         if (!valid) return done(null, false, { message: "Bad credentials" });
+        if(!user.emailVerified) return done(null, false, { message: "user not verified" });
         return done(null, user);
     } catch (error) {
         return done(error);

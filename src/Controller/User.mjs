@@ -2,7 +2,8 @@ import User from "../Model/User.mjs";
 import { hashPassword } from "../utils/PasswordHash.mjs";
 import passport from "passport";
 import Enrollment from "../Model/Enrollement.mjs";
-
+import { sendVerificationEmail } from "../Services/email.mjs";
+import crypto from "crypto"
 const safeUser = (user) => ({
     id: user._id,
     username: user.username,
@@ -53,7 +54,14 @@ export const createUser = async (req, res, next) => {
         }
 
         const hashedPassword = await hashPassword(password);
-        const user = await User.create({ username, email, password: hashedPassword, phone });
+        // create the token
+        const token = crypto.randomBytes(32).toString("hex")
+        // then hashed it and save it into the db
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        const user = await User.create({ username, email, password: hashedPassword, phone , emailVerificationToken : hashedToken , emailVerificationExpires : new Date(Date.now() + 30 * 60 * 1000) });
+
+        await sendVerificationEmail(user.email,token)
 
         return res.status(201).json({
             success: true,
@@ -62,6 +70,125 @@ export const createUser = async (req, res, next) => {
         });
     } catch (error) {
         next(error);
+    }
+};
+
+export const verifyUser = async (req,res,next) =>{
+    try {
+         const {token} = req.query
+
+         if(!token) return  res.status(400).json({
+            success: false,
+            message: "Verification token is required"
+         })
+
+         const hashedToken = crypto.createHash("sha256").update(token).digest("hex")
+         
+         const user = await User.findOne({
+            emailVerificationToken:hashedToken,
+            emailVerificationExpires:{$gt: new Date()}
+
+         }).select("+emailVerificationToken +emailVerificationExpires");
+
+         if(!user) return res.status(400).json({
+            success:false,
+            message:"Invalid or verification token is expired"
+         })
+
+         user.emailVerified = true
+         user.emailVerificationToken = undefined
+         user.emailVerificationExpires = undefined
+
+         await user.save()
+
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+
+export const resendVerificationEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                message: "Email is required"
+            });
+        }
+
+        const user = await User.findOne({ email }).select("+lastVerificationEmailSentAt");;
+
+
+        // Don't reveal whether the email exists
+        if (!user) {
+        console.log(user)
+            return res.status(200).json({
+                message:
+                    "If the email exists, a verification email has been sent."
+            });
+        }
+
+        // Already verified
+        if (user.emailVerified) {
+            return res.status(400).json({
+                message: "Email is already verified"
+            });
+        }
+
+        const now = Date.now();
+
+
+        if ( user.lastVerificationEmailSentAt && now - user.lastVerificationEmailSentAt.getTime() < 60 * 1000) {
+
+            return res.status(429).json({
+                message: "Please wait 60 seconds before requesting another email"
+            });
+        }
+
+        
+
+        // Generate new raw token
+        const rawToken = crypto
+            .randomBytes(32)
+            .toString("hex");
+
+        // Hash token before storing it
+        const hashedToken = crypto
+            .createHash("sha256")
+            .update(rawToken)
+            .digest("hex");
+
+        // Token expires after 30 minutes
+        user.emailVerificationToken = hashedToken;
+
+        user.emailVerificationExpires = new Date(
+            Date.now() + 30 * 60 * 1000
+        );
+
+        user.lastVerificationEmailSentAt = new Date(Date.now());
+
+        await user.save();
+
+        // Send raw token to user's email
+        await sendVerificationEmail(
+            user.email,
+            rawToken
+        );
+
+        return res.status(200).json({
+            message:
+                "If the email exists, a verification email has been sent."
+        });
+
+    } catch (error) {
+        console.error("Resend verification error:", error);
+
+        return res.status(500).json({
+            message: "Failed to resend verification email"
+        });
     }
 };
 
